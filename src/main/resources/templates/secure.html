@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>secure</title>
+</head>
+<body>
+<h1>Secure Page</h1>
+<h4>Name:</h4>
+<p>[[${user.firstName}]] [[${user.lastName}]]</p>
+<br/>
+<h4>Email:</h4>
+<p th:text="${user.email}"></p>
+</body>
+</html>
