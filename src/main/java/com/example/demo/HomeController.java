@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,8 +46,16 @@ public class HomeController {
 
     @RequestMapping("/secure")
     public String secure(Principal principal, Model model) {
+
         String username = principal.getName();
         model.addAttribute("user", userRepository.findByUsername(username));
+//        Set<Role> userRoles = new HashSet<>();
+//        ArrayList<Role> userRoles = new ArrayList<Role>();
+//        userRoles = roleRepository.findAllByUsername(username);
+
+        model.addAttribute("roles", roleRepository.findAllByUsername(username));
+
+//        model.addAttribute("roles", userRoles);
         return "secure";
     }
     @GetMapping("/register")
@@ -60,10 +69,11 @@ public class HomeController {
                                            BindingResult result, Model model) {
         model.addAttribute("user", user);
         if(result.hasErrors()) {
+            user.clearPassword();
             return "register";
         }
         else {
-            model.addAttribute("messge", "User Account Created");
+            model.addAttribute("message", "User Account Created");
 
             user.setEnabled(true);
             Role role = new Role(user.getUsername(), "ROLE_USER");
@@ -75,4 +85,6 @@ public class HomeController {
         }
         return "index";
     }
+
+
 }

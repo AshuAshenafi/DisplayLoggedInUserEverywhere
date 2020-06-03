@@ -1,15 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>secure</title>
 </head>
 <body>
 <h1>Secure Page</h1>
-<h4>Name:</h4>
-<p>[[${user.firstName}]] [[${user.lastName}]]</p>
+<h4>User Name:</h4>
+<div th:each = "user : ${user}">
+
+<p>[[${user.firstName}]], [[${user.lastName}]]</p>
+</div>
 <br/>
 <h4>Email:</h4>
-<p th:text="${user.email}"></p>
+<!--<p th:text="${user.email}"></p>-->
+<p>Email: [[${user.email}]]</p>
+
+
+<div th:each = "role : ${roles}">
+    <p>Role: [[${role.role}]]</p>
+</div>
 </body>
 </html>

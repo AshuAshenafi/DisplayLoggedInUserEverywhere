@@ -6,6 +6,9 @@
 </head>
 <body>
 <h2>Welcome Page</h2>
+<div th:if="${param.message}">
+    [[${param.message}]]
+</div>
 <a href="/admin">Admin Page</a>
 <br/>
 <form th:action="@{/logout}" method="post">

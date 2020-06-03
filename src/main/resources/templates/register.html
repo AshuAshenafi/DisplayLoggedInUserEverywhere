@@ -41,6 +41,7 @@
         <span th:if="${#fields.hasErrors('username')}"
         th:errors="*{username}">Username Error</span>
     </strong></mark>
+    <br/>
     Password
     <input type="text" id="password" placeholder="Password"
     th:field="*{password}"/>
@@ -48,6 +49,7 @@
         <span th:if="${#fields.hasErrors('password')}"
         th:errors="*{password}">Password Error</span>
     </strong></mark>
+    <br/>
     <br/>
     <button type="submit" class="btn btn-default">Submit</button>
 </form>
