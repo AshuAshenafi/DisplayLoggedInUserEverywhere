@@ -6,11 +6,14 @@
 </head>
 <body>
 <h2>Welcome Page</h2>
-<div th:if="${param.message}">
-    [[${param.message}]]
+
+<div th:if="${message}" style="color: green">
+    [[${message}]]
 </div>
+
 <a href="/admin">Admin Page</a>
 <br/>
+<a href="/register">Register</a>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Logout">
 </form>
