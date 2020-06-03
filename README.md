@@ -1,4 +1,3 @@
-##Spring Boot Example 405 Persisting Current User Information
+##Spring Boot Example 406 Implementing User Registration
 Learning Objectives
-* Storing User Information when Authentication
-* Retrieving information about the current user
+* Implementing a new user registration page for Spring Security
