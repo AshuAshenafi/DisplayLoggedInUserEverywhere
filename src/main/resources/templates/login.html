@@ -15,6 +15,14 @@
 <div th:if="${param.error}" style="color: maroon">
     Invalid username or password
 </div>
+<hr/>
+<p>You can sign in as <strong>USER:</strong> </p>
+<p>Username/Password: bart/bart</p>
+<hr/>
+<p>You can sign in as <strong>ADMIN:</strong></p>
+<p>Username/Password: super/super</p>
+<hr/>
+<p><strong>Sign up</strong> with the link below:</p>
 <!--<a href="/register">Register</a>-->
 <a href="/guestRegister">Sign Up</a>
 <form th:action="@{/login}" method="post">
