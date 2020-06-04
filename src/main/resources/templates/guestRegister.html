@@ -2,55 +2,57 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>register</title>
+    <title>guest-register</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/69e5f61610.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<nav th:replace="layouts :: navbar"></nav>
+<!--<nav th:replace="layouts :: navbar-guest"></nav>-->
 <h4>New User Registration</h4>
+
 <form autocomplete="off"
-        action="#"
-        th:action="@{/register}"
-        th:object="${user}" method="post">
+      action="#"
+      th:action="@{/guestProcess}"
+      th:object="${user}" method="post">
     First Name
-    <input type="text" id="firstName" placeholder="First Name"
-    th:field="*{firstName}"/>
-    <mark><strong>
-        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name Error</span>
-    </strong></mark>
+    <input type="text" id="firstName" placeholder="First Name here" th:field="*{firstName}"/>
+    <mark>
+        <strong>
+            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name Error</span>
+        </strong>
+    </mark>
     <br/>
     Last Name
     <input type="text" id="lastName" placeholder="Last Name"
-    th:field="*{lastName}"/>
+           th:field="*{lastName}"/>
     <mark><strong>
         <span th:if="${#fields.hasErrors('lastName')}"
-        th:errors="*{lastName}">Last Name Error</span>
+              th:errors="*{lastName}">Last Name Error</span>
     </strong></mark>
     <br/>
     Email
     <input type="email" id="email" placeholder="Email"
-    th:field="*{email}"/>
+           th:field="*{email}"/>
     <mark><strong>
         <span th:if="${#fields.hasErrors('email')}"
-        th:errors="*{email}">Email Error</span>
+              th:errors="*{email}">Email Error</span>
     </strong></mark>
     <br/>
     Username
     <input type="text" id="username" placeholder="Username"
-    th:field="*{username}"/>
+           th:field="*{username}"/>
     <mark><strong>
         <span th:if="${#fields.hasErrors('username')}"
-        th:errors="*{username}">Username Error</span>
+              th:errors="*{username}">Username Error</span>
     </strong></mark>
     <br/>
     Password
     <input type="text" id="password" placeholder="Password"
-    th:field="*{password}"/>
+           th:field="*{password}"/>
     <mark><strong>
         <span th:if="${#fields.hasErrors('password')}"
-        th:errors="*{password}">Password Error</span>
+              th:errors="*{password}">Password Error</span>
     </strong></mark>
     <br/>
     <br/>

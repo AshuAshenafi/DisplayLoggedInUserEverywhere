@@ -25,7 +25,10 @@ public class HomeController {
     RoleRepository roleRepository;
 
     @RequestMapping("/")
-    public String index() {
+    public String index(Principal principal, Model model) {
+        String username = principal.getName();
+        model.addAttribute("loggeduser", userRepository.findByUsername(username));
+//        model.addAttribute("loggedroles", roleRepository.findAllByUsername(username));
         return "index";
     }
 
@@ -40,7 +43,10 @@ public class HomeController {
     }
 
     @RequestMapping("/admin")
-    public String admin() {
+    public String admin(Principal principal, Model model) {
+        String username = principal.getName();
+        model.addAttribute("loggeduser", userRepository.findByUsername(username));
+//        model.addAttribute("loggedroles", roleRepository.findAllByUsername(username));
         return "admin";
     }
 
@@ -48,29 +54,67 @@ public class HomeController {
     public String secure(Principal principal, Model model) {
 
         String username = principal.getName();
-        model.addAttribute("user", userRepository.findByUsername(username));
+        model.addAttribute("loggeduser", userRepository.findByUsername(username));
 //        Set<Role> userRoles = new HashSet<>();
 //        ArrayList<Role> userRoles = new ArrayList<Role>();
 //        userRoles = roleRepository.findAllByUsername(username);
 
-        model.addAttribute("roles", roleRepository.findAllByUsername(username));
+        model.addAttribute("loggedroles", roleRepository.findAllByUsername(username));
 
 //        model.addAttribute("roles", userRoles);
         return "secure";
     }
+
     @GetMapping("/register")
-    public String showRegisterationPage(Model model) {
+    public String showRegisterationPage(Principal principal, Model model) {
         model.addAttribute("user", new User());
+        String username = principal.getName();
+        model.addAttribute("loggeduser", userRepository.findByUsername(username));
+//        model.addAttribute("loggedroles", roleRepository.findAllByUsername(username));
         return "register";
     }
 
     @PostMapping("/register")
     public String processRegisterationPage(@Valid @ModelAttribute("user") User user,
-                                           BindingResult result, Model model) {
+                                           BindingResult result, Principal principal, Model model) {
         model.addAttribute("user", user);
-        if(result.hasErrors()) {
+            String username = principal.getName();
+            model.addAttribute("loggeduser", userRepository.findByUsername(username));
+
+        if (result.hasErrors()) {
+
             user.clearPassword();
             return "register";
+        } else {
+
+
+            model.addAttribute("message", "User Account Created");
+
+            user.setEnabled(true);
+            Role role = new Role(user.getUsername(), "ROLE_USER");
+            Set<Role> roles = new HashSet<Role>();
+            roles.add(role);
+
+            roleRepository.save(role);
+            userRepository.save((user));
+
+        }
+        return "index";
+    }
+
+    @GetMapping("/guestRegister")
+    public String showRegisterationPage(Model model) {
+        model.addAttribute("user", new User());
+        return "guestRegister";
+    }
+    @PostMapping("/guestProcess")
+    public String processRegisterationPage(@Valid @ModelAttribute("user") User user,
+                                           BindingResult result, Model model) {
+        model.addAttribute("user", user);
+
+        if(result.hasErrors()) {
+            user.clearPassword();
+            return "guestRegister";
         }
         else {
             model.addAttribute("message", "User Account Created");
@@ -82,8 +126,10 @@ public class HomeController {
 
             roleRepository.save(role);
             userRepository.save((user));
+
         }
-        return "index";
+//        return "test";
+        return "redirect:/";
     }
 
 
